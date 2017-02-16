@@ -42,7 +42,7 @@ public class ParsingActivity extends Activity {
             }
 
         }catch(JSONException e){
-            //
+
             e.printStackTrace();
         }
 
