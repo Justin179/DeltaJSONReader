@@ -24,10 +24,34 @@ public class ParsingActivity extends Activity {
         setContentView(R.layout.activity_parsing);
 
         String s = getJSONFile();
+        String[] myDataArray = {};
         
         //
         // Try to parse some JSON and display it in a listview.
         //
+
+        try{
+            JSONObject rootJSON = new JSONObject(s);
+            JSONArray toppingJSON = rootJSON.getJSONArray("topping");
+            myDataArray = new String[toppingJSON.length()];
+
+            for(int i = 0; i<toppingJSON.length(); i++){
+                JSONObject jsonObject = toppingJSON.getJSONObject(i);
+                myDataArray[i] = jsonObject.getString("type");
+
+            }
+
+        }catch(JSONException e){
+            e.printStackTrace();
+        }
+
+        // now we need to display the array in a ListView
+        mListView = (ListView)findViewById(R.id.myListView);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getApplicationContext(),R.layout.row,myDataArray);
+
+        if(mListView!=null){
+            mListView.setAdapter(arrayAdapter);
+        }
 
     }
 
